@@ -103,7 +103,7 @@ export default function Chatbot() {
                   </div>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all">
+              <button onClick={() => setIsOpen(false)} title="Đóng chatbot" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all">
                 <X size={18} />
               </button>
             </div>
@@ -149,6 +149,7 @@ export default function Chatbot() {
                 />
                 <button
                   onClick={handleSend}
+                  title="Gửi tin nhắn"
                   className="absolute right-2 top-2 w-10 h-10 rounded-xl bg-gradient-to-r from-[#4F46E5] to-[#8B5CF6] flex items-center justify-center text-white hover:shadow-lg hover:shadow-indigo-500/40 transition-all active:scale-95"
                 >
                   <Send size={18} />

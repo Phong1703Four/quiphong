@@ -10,15 +10,10 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Gradient background layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a2e] via-[#1a1a4e] to-[#0a0a1a]" />
-      <div className="absolute inset-0 opacity-30"
-        style={{
-          background: "radial-gradient(ellipse at 30% 20%, rgba(79,70,229,0.4) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(6,182,212,0.3) 0%, transparent 50%)"
-        }}
-      />
+      <div className="absolute inset-0 opacity-30 gradient-radial-hero" />
 
       {/* Floating characters */}
-      <div className={`absolute left-[15%] top-[30%] transition-all duration-1000 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        style={{ animation: "float 4s ease-in-out infinite" }}>
+      <div className={`absolute left-[15%] top-[30%] transition-all duration-1000 animate-float-custom ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-blue-500/50 border-2 border-blue-300/50">
           Na⁺
         </div>
@@ -26,8 +21,7 @@ export default function HeroSection() {
       </div>
 
       <div className={`absolute right-[15%] top-[35%] transition-all duration-1000 delay-300 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        style={{ animation: "float 4s ease-in-out infinite 1s" }}>
-        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-purple-500/50 border-2 border-purple-300/50">
+        style={{ animation: "float 4s ease-in-out infinite 1s" }}>animate-float-delayed ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}` from-purple-400 to-purple-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-purple-500/50 border-2 border-purple-300/50">
           Cl⁻
         </div>
         <div className="text-center text-xs mt-2 text-purple-300 font-bold">Công chúa</div>
@@ -36,7 +30,7 @@ export default function HeroSection() {
       {/* Main Title */}
       <div className={`relative z-10 text-center px-6 transition-all duration-1000 delay-100 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         <div className="mb-4 text-6xl" style={{ animation: "float 3s ease-in-out infinite" }}>🧂</div>
-        <motion.h1 
+        <motion.h1  animate-float-emoji"
           initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)", y: 50, rotateX: 30 }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0, rotateX: 0 }}
           transition={{ duration: 1.2, type: "spring", bounce: 0.5, delay: 0.3 }}
@@ -51,7 +45,7 @@ export default function HeroSection() {
           </span>
         </motion.h1>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10" style={{ lineHeight: "2" }}>
-          Khám phá hành trình kỳ diệu của NaCl — từ đại dương mênh mông đến bàn ăn mỗi ngày, qua lăng kính truyện tranh tương tác và trò chơi khoa học
+          Khám phá hành trình kỳ diệu của NaCl — từ đại dương mênh mông đến bàn ăn mỗi ngày, q line-height-2"ng tác và trò chơi khoa học
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
           <button

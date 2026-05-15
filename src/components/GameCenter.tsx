@@ -1,6 +1,6 @@
 "use client";
-import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 
 // ========== DATA ==========
 const quizzes = [
@@ -55,7 +55,8 @@ function fireConfetti(x: number, y: number) {
     const vy = Math.sin(angle) * velocity - 3;
     el.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:8px;height:8px;background:${colors[Math.floor(Math.random() * colors.length)]};border-radius:50%;pointer-events:none;z-index:9999;`;
     document.body.appendChild(el);
-    let px = x, py = y, vvx = vx, vvy = vy;
+    let px = x, py = y, vvy = vy;
+    const vvx = vx;
     const animate = () => {
       px += vvx;
       py += vvy;
@@ -83,7 +84,7 @@ function QuizGame() {
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
 
-  const handle = (i: number, e: any) => {
+  const handle = (i: number, e: React.MouseEvent) => {
     if (selected !== null) return;
     setSelected(i);
     
@@ -188,7 +189,7 @@ function DragGame() {
   const clRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleDragEnd = (ion: "na" | "cl", info: any) => {
+  const handleDragEnd = (ion: "na" | "cl", info: PanInfo) => {
     if (done) return;
     setPositions(p => ({ ...p, [ion]: { x: info.offset.x, y: info.offset.y } }));
     setSteps(s => s + 1);
@@ -256,7 +257,7 @@ function SortGame() {
   const [answered, setAnswered] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
 
-  const handle = (cat: string, e: any) => {
+  const handle = (cat: string, e: React.MouseEvent) => {
     if (answered) return;
     setAnswered(true);
 
@@ -454,7 +455,7 @@ function CatcherGame() {
   const ionCountRef = useRef(0);
 
   useEffect(() => {
-    const h = (e: any) => setPos(Math.max(0, Math.min(90, (e.clientX / window.innerWidth) * 100)));
+    const h = (e: MouseEvent) => setPos(Math.max(0, Math.min(90, (e.clientX / window.innerWidth) * 100)));
     window.addEventListener("mousemove", h);
     return () => window.removeEventListener("mousemove", h);
   }, []);
@@ -764,7 +765,7 @@ function LabGame() {
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
 
-  const dissolve = (i: number, e: any) => {
+  const dissolve = (i: number, e: React.MouseEvent) => {
     const n = [...crystals];
     if (!n[i].dissolved) {
       n[i] = { dissolved: true };
@@ -816,9 +817,6 @@ function LabGame() {
 
 // 10. Matching Game
 function MatchingGame() {
-  const [pairs, setPairs] = useState<number[]>(Array(6).fill(-1));
-  const [selected, setSelected] = useState<number | null>(null);
-  const [matched, setMatched] = useState<number[]>([]);
 
   const definitions = [
     { term: "Ion", def: "Nguyên tử mất/nhận e" },
@@ -866,43 +864,67 @@ const games = [
 
 export default function GameCenter() {
   const [active, setActive] = useState<string | null>(null);
-  const [globalScore, setGlobalScore] = useState(0);
-  const [gamesPlayed, setGamesPlayed] = useState<string[]>([]);
-
-  const handleGameComplete = () => {
-    if (active && !gamesPlayed.includes(active)) {
-      setGamesPlayed([...gamesPlayed, active]);
-    }
-  };
+  const [globalScore] = useState(0);
+  const [gamesPlayed] = useState<string[]>([]);
 
   return (
     <section className="max-w-5xl mx-auto px-6 pb-20">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <div className="inline-block mb-4 px-4 py-2 bg-indigo-500/20 border border-indigo-500 rounded-full text-xs font-bold text-indigo-300">
-          🎮 GAME CENTER
-        </div>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-3">
-          10 Trò Chơi Hóa Học Thú Vị
-        </h2>
-        <p className="text-gray-400 text-base max-w-2xl mx-auto">
-          Khám phá thế giới NaCl qua các trò chơi tương tác, vừa học vừa chơi!
-        </p>
-        <div className="mt-6 flex justify-center gap-6 text-sm">
-          <div className="px-4 py-2 bg-white/5 rounded-lg">
-            <span className="text-gray-400">Đã chơi: </span>
-            <span className="font-bold text-emerald-400">{gamesPlayed.length}/{games.length}</span>
-          </div>
-          <div className="px-4 py-2 bg-white/5 rounded-lg">
-            <span className="text-gray-400">Tổng điểm: </span>
-            <span className="font-bold text-blue-400">{globalScore}</span>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        {!active && (
+          <motion.div
+            key="header"
+            initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <motion.div 
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", bounce: 0.5, delay: 0.2 }}
+              className="inline-block mb-4 px-4 py-2 bg-indigo-500/20 border border-indigo-500 rounded-full text-xs font-bold text-indigo-300"
+            >
+              🎮 GAME CENTER
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, type: "spring", bounce: 0.4, delay: 0.3 }}
+              className="text-4xl md:text-5xl font-extrabold text-white mb-3"
+            >
+              10 Trò Chơi Hóa Học Thú Vị
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-gray-400 text-base max-w-2xl mx-auto"
+            >
+              Khám phá thế giới NaCl qua các trò chơi tương tác, vừa học vừa chơi!
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-6 flex justify-center gap-6 text-sm"
+            >
+              <div className="px-4 py-2 bg-white/5 rounded-lg">
+                <span className="text-gray-400">Đã chơi: </span>
+                <span className="font-bold text-emerald-400">{gamesPlayed.length}/{games.length}</span>
+              </div>
+              <div className="px-4 py-2 bg-white/5 rounded-lg">
+                <span className="text-gray-400">Tổng điểm: </span>
+                <span className="font-bold text-blue-400">{globalScore}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         {!active ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
+          <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
             {/* Games Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {games.map(g => (
@@ -953,7 +975,7 @@ export default function GameCenter() {
             </div>
           </motion.div>
         ) : (
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+          <motion.div key="game" initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }}
             className="bg-gradient-to-br from-white/5 to-white/10 border border-white/20 p-8 md:p-12 rounded-3xl relative">
             {/* Close Button */}
             <motion.button

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   const [show, setShow] = useState(false);
@@ -35,7 +36,12 @@ export default function HeroSection() {
       {/* Main Title */}
       <div className={`relative z-10 text-center px-6 transition-all duration-1000 delay-100 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         <div className="mb-4 text-6xl" style={{ animation: "float 3s ease-in-out infinite" }}>🧂</div>
-        <h1 className="font-[var(--font-display)] text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight">
+        <motion.h1 
+          initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)", y: 50, rotateX: 30 }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0, rotateX: 0 }}
+          transition={{ duration: 1.2, type: "spring", bounce: 0.5, delay: 0.3 }}
+          className="font-[var(--font-display)] text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight drop-shadow-[0_0_30px_rgba(79,70,229,0.5)]"
+        >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#06B6D4] to-[#8B5CF6]">
             Bí Ẩn Của
           </span>
@@ -43,7 +49,7 @@ export default function HeroSection() {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] via-[#EF4444] to-[#8B5CF6]">
             Muối Ăn
           </span>
-        </h1>
+        </motion.h1>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10" style={{ lineHeight: "2" }}>
           Khám phá hành trình kỳ diệu của NaCl — từ đại dương mênh mông đến bàn ăn mỗi ngày, qua lăng kính truyện tranh tương tác và trò chơi khoa học
         </p>

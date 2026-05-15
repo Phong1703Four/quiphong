@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -194,14 +193,29 @@ function ChapterCard({ ch, idx }: { ch: typeof chapters[0]; idx: number }) {
   );
 }
 
-export default function StorySection({ soundOn }: { soundOn: boolean }) {
+export default function StorySection({}: { soundOn: boolean }) {
   return (
     <section className="relative z-10 max-w-4xl mx-auto px-6 py-20 flex flex-col gap-14">
       <div className="text-center mb-4">
-        <span className="text-sm font-bold text-[#F59E0B] tracking-widest uppercase">Câu Chuyện Bắt Đầu</span>
-        <h2 className="font-[var(--font-display)] text-3xl md:text-5xl font-extrabold mt-2 text-white">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, filter: "blur(5px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
+          className="inline-block"
+        >
+          <span className="text-sm font-bold text-[#F59E0B] tracking-widest uppercase">Câu Chuyện Bắt Đầu</span>
+        </motion.div>
+        
+        <motion.h2 
+          initial={{ opacity: 0, y: 30, scale: 0.9, filter: "blur(10px)", rotateX: 20 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)", rotateX: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.9, type: "spring", bounce: 0.4, delay: 0.2 }}
+          className="font-[var(--font-display)] text-3xl md:text-5xl font-extrabold mt-2 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+        >
           8 Chương · 1 Hành Trình Kỳ Diệu
-        </h2>
+        </motion.h2>
       </div>
 
       {chapters.map((ch, i) => (

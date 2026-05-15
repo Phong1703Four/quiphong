@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot, Sparkles, BrainCircuit } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, BrainCircuit } from "lucide-react";
 
 const INITIAL_MESSAGE = {
   id: 1,

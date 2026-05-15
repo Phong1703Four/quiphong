@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import ParticleCanvas from "@/components/ParticleCanvas";
@@ -12,7 +12,7 @@ import VideoSection from "@/components/VideoSection";
 import GameCenter from "@/components/GameCenter";
 
 // Transition styles cho các sections
-const sectionVariants = {
+const sectionVariants: Variants = {
   hidden: { 
     opacity: 0, 
     y: 20, 
@@ -38,7 +38,7 @@ const sectionVariants = {
 };
 
 // Transition styles cho page transitions
-const pageVariants = {
+const pageVariants: Variants = {
   hidden: { 
     opacity: 0, 
     y: 10, 

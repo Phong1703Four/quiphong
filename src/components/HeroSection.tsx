@@ -20,8 +20,8 @@ export default function HeroSection() {
         <div className="text-center text-xs mt-2 text-blue-300 font-bold">Hiệp sĩ</div>
       </div>
 
-      <div className={`absolute right-[15%] top-[35%] transition-all duration-1000 delay-300 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        style={{ animation: "float 4s ease-in-out infinite 1s" }}>animate-float-delayed ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}` from-purple-400 to-purple-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-purple-500/50 border-2 border-purple-300/50">
+      <div className={`absolute right-[15%] top-[35%] transition-all duration-1000 delay-300 animate-float-delayed ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-extrabold text-2xl shadow-lg shadow-purple-500/50 border-2 border-purple-300/50">
           Cl⁻
         </div>
         <div className="text-center text-xs mt-2 text-purple-300 font-bold">Công chúa</div>
@@ -29,8 +29,8 @@ export default function HeroSection() {
 
       {/* Main Title */}
       <div className={`relative z-10 text-center px-6 transition-all duration-1000 delay-100 ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <div className="mb-4 text-6xl" style={{ animation: "float 3s ease-in-out infinite" }}>🧂</div>
-        <motion.h1  animate-float-emoji"
+        <div className="mb-4 text-6xl animate-float-emoji">🧂</div>
+        <motion.h1 
           initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)", y: 50, rotateX: 30 }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0, rotateX: 0 }}
           transition={{ duration: 1.2, type: "spring", bounce: 0.5, delay: 0.3 }}
@@ -44,8 +44,8 @@ export default function HeroSection() {
             Muối Ăn
           </span>
         </motion.h1>
-        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10" style={{ lineHeight: "2" }}>
-          Khám phá hành trình kỳ diệu của NaCl — từ đại dương mênh mông đến bàn ăn mỗi ngày, q line-height-2"ng tác và trò chơi khoa học
+        <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10 line-height-2">
+          Khám phá hành trình kỳ diệu của NaCl — từ đại dương mênh mông đến bàn ăn mỗi ngày, qua lăng kính truyện tranh tương tác và trò chơi khoa học
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
           <button

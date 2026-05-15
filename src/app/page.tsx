@@ -69,6 +69,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("story");
   const [soundOn, setSoundOn] = useState(false);
 
+  // Trigger rebuild
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#02020a]">
       <ParticleCanvas />
